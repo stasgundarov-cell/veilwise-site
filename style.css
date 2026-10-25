@@ -1,0 +1,102 @@
+/* Layout: narrow single column, hero with score dial, quiet sections. System fonts only: no third-party requests. */
+:root{
+  --bg:#f1f5f4; --surface:#ffffff; --fg:#14201e; --muted:#5b6b68; --line:#dce5e3;
+  --accent:#0F766E; --accent-soft:#dcefec; --veil:#c5e3df;
+  --display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --body:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b1312; --surface:#121d1b; --fg:#e7efed; --muted:#8fa19d; --line:#22312e;
+  --accent:#2DD4BF; --accent-soft:#12302d; --veil:#1d3a37; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b1312; --surface:#121d1b; --fg:#e7efed; --muted:#8fa19d; --line:#22312e;
+  --accent:#2DD4BF; --accent-soft:#12302d; --veil:#1d3a37; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:880px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+
+/* nav */
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:18px;color:var(--fg);text-decoration:none;letter-spacing:-.01em}
+.brand img{width:32px;height:32px;border-radius:8px}
+.nav-links{display:flex;gap:18px;font-size:15px}
+.nav-links a{color:var(--muted);text-decoration:none}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--fg)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding-block:48px 64px}
+.hero>*{min-width:0}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
+h1{font-family:var(--display);font-size:clamp(36px,7vw,58px);line-height:1.04;letter-spacing:-.03em;margin:0 0 18px;text-wrap:balance}
+.lead{font-size:19px;color:var(--muted);margin:0 0 28px;max-width:34ch}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px}
+.store{display:inline-flex;align-items:center;gap:10px;background:var(--fg);color:var(--bg);text-decoration:none;border-radius:12px;padding:12px 20px;font-weight:600;font-size:16px;line-height:1.2}
+.store small{display:block;font-size:11px;font-weight:500;opacity:.75}
+.store:hover{opacity:.9}
+.store img{height:48px;display:block}
+.note{font-size:14px;color:var(--muted)}
+a:focus-visible,.store:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* score dial */
+.dial{position:relative;aspect-ratio:1;max-width:300px;width:100%;margin-left:auto;border-radius:50%;
+  background:radial-gradient(circle at 50% 50%,var(--surface) 58%,transparent 59%),
+             conic-gradient(var(--accent) 0 var(--p,40%),var(--veil) var(--p,40%) 100%);
+  display:grid;place-items:center;box-shadow:0 30px 60px -30px rgba(15,118,110,.35)}
+.dial-in{text-align:center}
+.dial-num{font-family:var(--display);font-size:64px;font-weight:700;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.dial-lbl{font-size:13px;color:var(--muted);margin-top:6px;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.dial-cap{text-align:center;font-size:13px;color:var(--muted);margin-top:14px;margin-left:auto;max-width:300px}
+
+/* features */
+section{padding-block:40px}
+h2{font-family:var(--display);font-size:clamp(26px,4.5vw,34px);letter-spacing:-.02em;line-height:1.15;margin:0 0 24px;text-wrap:balance}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feature{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px}
+.feature .k{font-family:var(--display);font-size:32px;font-weight:700;letter-spacing:-.03em;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}
+.feature h3{font-size:17px;margin:12px 0 6px}
+.feature p{margin:0;font-size:15px;color:var(--muted)}
+
+/* screenshots */
+.shots{display:flex;gap:16px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory}
+.shots img{width:220px;flex:0 0 auto;border-radius:28px;border:1px solid var(--line);scroll-snap-align:start;background:var(--surface)}
+
+/* steps */
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:36px 1fr;gap:14px;align-items:start}
+.steps li::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:15px}
+.steps b{display:block}
+.steps span{color:var(--muted);font-size:15px}
+
+/* final cta */
+.final{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:36px 28px;text-align:center;margin-block:24px 40px}
+.final p{color:var(--muted);margin:0 auto 22px;max-width:44ch}
+
+/* prose pages */
+.prose{max-width:66ch;padding-block:32px 56px}
+.prose h1{font-size:clamp(32px,6vw,44px)}
+.prose h2{font-size:22px;margin:36px 0 10px}
+.prose p,.prose li{color:var(--fg)}
+.prose .meta{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.faq details{border-bottom:1px solid var(--line);padding-block:16px}
+.faq summary{cursor:pointer;font-weight:600}
+.faq details p{margin:10px 0 0;color:var(--muted)}
+.contact{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-top:28px}
+.contact code{font-family:var(--mono);font-size:16px;user-select:all}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding-block:28px 40px;font-size:14px;color:var(--muted)}
+footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+footer a{color:var(--muted)}
+footer nav{display:flex;gap:18px}
+
+@media (max-width:720px){
+  .hero{grid-template-columns:1fr;padding-block:24px 40px;gap:32px}
+  .dial{margin:0 auto;max-width:240px}
+  .dial-cap{margin-left:auto;margin-right:auto}
+  .features{grid-template-columns:1fr}
+  .nav-links{gap:14px}
+}
+@media (prefers-reduced-motion:no-preference){.dial{transition:--p .8s}}
